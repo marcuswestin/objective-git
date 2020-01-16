@@ -1,0 +1,21 @@
+#!/bin/bash -ex
+#
+# script/test-macos
+# 
+# Executes the build and runs tests for Mac.
+
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+cd $SCRIPT_DIR/.. # Go to project root
+
+SCHEME="ObjectiveGit Mac"
+
+set -o pipefail
+XCWORKSPACE="ObjectiveGitFramework.xcworkspace"
+XCWORKSPACE="ObjectiveGitFramework.xcworkspace"
+XCPRETTY_FORMAT_OPTIONS="--color"
+
+xcodebuild -workspace "$XCWORKSPACE" \
+  -scheme "$SCHEME" \
+  ${XCODE_OPTIONS[*]} \
+  build test \
+  2>&1 | xcpretty $XCPRETTY_FORMAT_OPTIONS
